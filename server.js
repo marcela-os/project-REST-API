@@ -12,35 +12,35 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-  res.json(db);
+  res.json(db.testimonials);
 });
 app.get('/random', (req, res) => {
-  const random = db[Math.floor(Math.random() * db.length) + 1];
+  const random = db.testimonials[Math.floor(Math.random() * (db.testimonials).length) + 1];
   console.log(random);
   res.json({ random });
 });
 
 app.get('/:id', (req, res) => {
-  res.json(db.find(item => item.id == req.params.id));
+  res.json(db.testimonials.find(item => item.id == req.params.id));
 });
 
 app.post('/', (req, res) => {
   const { author, text } = req.body;
   const id = Math.floor(Math.random() + 99);
-  db.push({ id, author, text });
+  db.testimonials.push({ id, author, text });
   res.json({ message: 'OK' });
 });
 
 app.put('/:id', (req, res) => {
-  const testimonials = db.find(item => item.id == req.params.id);
+  const testimonials = db.testimonials.find(item => item.id == req.params.id);
   testimonials.author = req.body.author;
   testimonials.text = req.body.text;
   res.json({ message: 'OK' });
 });
 
 app.delete('/:id', (req, res) => {
-  let index = db.find(item => item.id === req.query.id);
-  db.splice(index, 1);
+  let index = db.testimonials.find(item => item.id === req.query.id);
+  db.testimonials.splice(index, 1);
   res.json({ message: 'OK' });
 });
 
