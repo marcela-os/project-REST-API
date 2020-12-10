@@ -11,8 +11,6 @@ const seatsRoutes = require('./routes/seats.routes');
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, '/client')));
-//app.use ('/client/public/', express.static(path.join(__dirname + '/public')));
-//res.sendFile('../client/public/index.html', {root: __dirname});
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 app.use('/api', testimonialsRoutes); // add user routes to server
@@ -23,11 +21,6 @@ app.use('/api', seatsRoutes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/public/index.html'));
 });
-
-/*app.get('/', (req, res) => {
-  res.sendFile(path.resolve('client/public/index.html'));
-});*/
-
 
 app.use((req, res) => {
   res.status(404).send('404 not found...');
