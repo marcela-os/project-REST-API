@@ -12,9 +12,22 @@ router.route('/seats/:id').get((req, res) => {
 
 router.route('/seats').post((req, res) => {
   const { day, seat, client, email } = req.body;
-  const id = Math.floor(Math.random() + 99);
-  db.seats.push({ id, day, seat, client, email });
+  const index = {
+    id: Math.floor(Math.random() + 99),
+    day: day,
+    seat: seat,
+    client: client,
+    email: email,
+  }
+  console.log(index);
+
+  if (db.seats.some(item => (item.seat === index.seat && item.day === index.day))) {
+    res.json({ message: 'The slot is already taken...' });
+  }
+  else {
+  db.seats.push(index);
   res.json({ message: 'OK' });
+  }
 });
 
 router.route('/seats/:id').put((req, res) => {
