@@ -4,6 +4,7 @@ const db = require('./../db');
 
 router.route('/seats').get((req, res) => {
     res.json(db.seats);
+    req.io.emit('seatsUpdated', db.seats);
 });
 
 router.route('/seats/:id').get((req, res) => {
@@ -26,6 +27,7 @@ router.route('/seats').post((req, res) => {
   }
   else {
   db.seats.push(index);
+  req.io.emit('seatsUpdated', db.seats);
   res.json({ message: 'OK' });
   }
 });
