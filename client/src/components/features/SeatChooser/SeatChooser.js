@@ -1,4 +1,5 @@
 import React from 'react';
+import io from 'socket.io-client';
 import { Button, Progress, Alert } from 'reactstrap';
 
 import './SeatChooser.scss';
@@ -11,6 +12,8 @@ class SeatChooser extends React.Component {
 
     this.timerID = setInterval(function(){loadSeats(); }, 2000 * 60);
     //console.log(this.timerID);
+
+    this.socket = io('http://localhost:8000');
   }
 
   componentWillUnmount() {
